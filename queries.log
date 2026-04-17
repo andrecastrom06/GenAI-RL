@@ -5476,3 +5476,512 @@ GROUP BY
     dc.estado;
 2026-04-17 11:26:27,027 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 429 Too Many Requests"
 2026-04-17 11:26:27,033 - Erro da API Gemini durante a troca de função: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash-lite\nPlease retry in 32.736883819s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash-lite'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '32s'}]}}
+2026-04-17 11:38:09,526 - Iniciando agent_loop para pergunta: % de pedidos entregues no prazo por estado dos consumidores
+2026-04-17 11:38:09,527 - Consultando schema do banco de dados
+2026-04-17 11:38:10,098 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-04-17 11:38:10,101 - Erro da API Gemini: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash-lite\nPlease retry in 49.666450854s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash-lite'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '49s'}]}}
+2026-04-17 11:40:25,873 - Iniciando agent_loop para pergunta: Média de avaliação geral dos pedidos
+2026-04-17 11:40:25,875 - Consultando schema do banco de dados
+2026-04-17 11:40:31,886 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 11:40:31,893 - [attempt 1] Processando response com 1 candidates
+2026-04-17 11:40:31,893 - Parte recebida: function_call=True; text=''
+2026-04-17 11:40:31,894 - Detectada função chamada: executar_query
+2026-04-17 11:40:31,894 - Executando query SQL: SELECT AVG(avaliacao) FROM fat_avaliacoes_pedidos
+2026-04-17 11:40:31,971 - Query executada: SELECT AVG(avaliacao) FROM fat_avaliacoes_pedidos
+2026-04-17 11:40:33,039 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 11:40:33,042 - [attempt 2] Processando response com 1 candidates
+2026-04-17 11:40:33,043 - Parte recebida: function_call=False; text='4.11'
+2026-04-17 11:40:33,044 - Resposta final recebida do modelo: 4.11
+2026-04-17 11:40:33,044 - Finalizando agent_loop com resposta final: 4.11
+2026-04-17 11:40:48,084 - Iniciando agent_loop para pergunta: Média de avaliação por vendedor (top 10)
+2026-04-17 11:40:48,086 - Usando schema em cache
+2026-04-17 11:40:58,113 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 11:40:58,116 - [attempt 1] Processando response com 1 candidates
+2026-04-17 11:40:58,116 - Parte recebida: function_call=True; text=''
+2026-04-17 11:40:58,117 - Detectada função chamada: executar_query
+2026-04-17 11:40:58,117 - Executando query SQL: SELECT AVG(T1.avaliacao) AS media_avaliacao, T3.nome_vendedor FROM fat_avaliacoes_pedidos AS T1 INNER JOIN fat_itens_pedidos AS T2 ON T1.id_pedido = T2.id_pedido INNER JOIN dim_vendedores AS T3 ON T2.id_vendedor = T3.id_vendedor GROUP BY T3.nome_vendedor ORDER BY media_avaliacao DESC LIMIT 10
+2026-04-17 11:41:00,019 - Query executada: SELECT AVG(T1.avaliacao) AS media_avaliacao, T3.nome_vendedor FROM fat_avaliacoes_pedidos AS T1 INNER JOIN fat_itens_pedidos AS T2 ON T1.id_pedido = T2.id_pedido INNER JOIN dim_vendedores AS T3 ON T2.id_vendedor = T3.id_vendedor GROUP BY T3.nome_vendedor ORDER BY media_avaliacao DESC LIMIT 10
+2026-04-17 11:41:04,776 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 11:41:04,779 - [attempt 2] Processando response com 1 candidates
+2026-04-17 11:41:04,780 - Parte recebida: function_call=False; text='Ísis Siqueira, Ágatha Castro, Zoe Rezende, Yuri Ribeiro, Yuri Dias, Yasmin Montenegro, Yasmin Gomes, Yan Vieira, Yago Sá, Yago Rios'
+2026-04-17 11:41:04,780 - Resposta final recebida do modelo: Ísis Siqueira, Ágatha Castro, Zoe Rezende, Yuri Ribeiro, Yuri Dias, Yasmin Montenegro, Yasmin Gomes, Yan Vieira, Yago Sá, Yago Rios
+2026-04-17 11:41:04,784 - Finalizando agent_loop com resposta final: Ísis Siqueira
+Ágatha Castro
+Zoe Rezende
+Yuri Ribeiro
+Yuri Dias
+Yasmin Montenegro
+Yasmin Gomes
+Yan Vieira
+Yago Sá
+Yago Rios
+2026-04-17 11:45:09,585 - Iniciando agent_loop para pergunta: Estados com maior volume de pedidos e maior ticket médio
+2026-04-17 11:45:09,586 - Usando schema em cache
+2026-04-17 11:45:12,872 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 11:45:12,874 - [attempt 1] Processando response com 1 candidates
+2026-04-17 11:45:12,875 - Parte recebida: function_call=True; text=''
+2026-04-17 11:45:12,875 - Detectada função chamada: executar_query
+2026-04-17 11:45:12,876 - Executando query SQL: 
+SELECT
+  c.estado,
+  COUNT(fp.id_pedido) AS numero_de_pedidos,
+  AVG(fp.valor_total_pago_brl) AS ticket_medio
+FROM fat_pedido_total AS fp
+JOIN dim_consumidores AS c
+  ON fp.id_consumidor = c.id_consumidor
+GROUP BY
+  c.estado
+ORDER BY
+  numero_de_pedidos DESC
+LIMIT 10;
+
+2026-04-17 11:45:13,624 - Query executada: 
+SELECT
+  c.estado,
+  COUNT(fp.id_pedido) AS numero_de_pedidos,
+  AVG(fp.valor_total_pago_brl) AS ticket_medio
+FROM fat_pedido_total AS fp
+JOIN dim_consumidores AS c
+  ON fp.id_consumidor = c.id_consumidor
+GROUP BY
+  c.estado
+ORDER BY
+  numero_de_pedidos DESC
+LIMIT 10;
+
+2026-04-17 11:45:18,570 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 11:45:18,571 - [attempt 2] Processando response com 1 candidates
+2026-04-17 11:45:18,572 - Resposta do modelo não contém partes de conteúdo para processar.
+2026-04-17 11:45:18,572 - Finalizando agent_loop com resultado de query formatado
+2026-04-17 11:46:48,410 - Iniciando agent_loop para pergunta: Estados com maior volume de pedidos e maior ticket médio
+2026-04-17 11:46:48,410 - Consultando schema do banco de dados
+2026-04-17 11:46:54,409 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 11:46:54,413 - [attempt 1] Processando response com 1 candidates
+2026-04-17 11:46:54,414 - Parte recebida: function_call=True; text=''
+2026-04-17 11:46:54,415 - Detectada função chamada: executar_query
+2026-04-17 11:46:54,416 - Executando query SQL: 
+SELECT
+  c.estado,
+  COUNT(fp.id_pedido) AS numero_de_pedidos,
+  AVG(fp.valor_total_pago_brl) AS ticket_medio
+FROM fat_pedido_total AS fp
+JOIN dim_consumidores AS c
+  ON fp.id_consumidor = c.id_consumidor
+GROUP BY
+  c.estado
+ORDER BY
+  numero_de_pedidos DESC
+LIMIT 10;
+
+2026-04-17 11:46:55,491 - Query executada: 
+SELECT
+  c.estado,
+  COUNT(fp.id_pedido) AS numero_de_pedidos,
+  AVG(fp.valor_total_pago_brl) AS ticket_medio
+FROM fat_pedido_total AS fp
+JOIN dim_consumidores AS c
+  ON fp.id_consumidor = c.id_consumidor
+GROUP BY
+  c.estado
+ORDER BY
+  numero_de_pedidos DESC
+LIMIT 10;
+
+2026-04-17 11:46:58,709 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 11:46:58,713 - [attempt 2] Processando response com 1 candidates
+2026-04-17 11:46:58,714 - Parte recebida: function_call=False; text='O estado de SP possui o maior volume de pedidos (41.746), enquanto o estado da BA apresenta o maior ticket médio (182,44 BRL).'
+2026-04-17 11:46:58,715 - Resposta final recebida do modelo: O estado de SP possui o maior volume de pedidos (41.746), enquanto o estado da BA apresenta o maior ticket médio (182,44 BRL).
+2026-04-17 11:46:58,716 - Finalizando agent_loop com resposta final: O estado de SP possui o maior volume de pedidos (41.746), enquanto o estado da BA apresenta o maior ticket médio (182,44 BRL).
+2026-04-17 11:47:15,174 - Iniciando agent_loop para pergunta: Estados com maior atraso
+2026-04-17 11:47:15,175 - Usando schema em cache
+2026-04-17 11:47:16,660 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 11:47:16,664 - [attempt 1] Processando response com 1 candidates
+2026-04-17 11:47:16,665 - Parte recebida: function_call=True; text=''
+2026-04-17 11:47:16,666 - Detectada função chamada: executar_query
+2026-04-17 11:47:16,667 - Executando query SQL: SELECT T2.estado, AVG(T1.diferenca_entrega_dias) AS media_atraso FROM fat_pedidos AS T1 INNER JOIN dim_consumidores AS T2 ON T1.id_consumidor = T2.id_consumidor GROUP BY T2.estado ORDER BY media_atraso DESC
+2026-04-17 11:47:17,276 - Query executada: SELECT T2.estado, AVG(T1.diferenca_entrega_dias) AS media_atraso FROM fat_pedidos AS T1 INNER JOIN dim_consumidores AS T2 ON T1.id_consumidor = T2.id_consumidor GROUP BY T2.estado ORDER BY media_atraso DESC
+2026-04-17 11:47:18,020 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 11:47:18,023 - [attempt 2] Processando response com 1 candidates
+2026-04-17 11:47:18,024 - Parte recebida: function_call=False; text='AL'
+2026-04-17 11:47:18,025 - Resposta final recebida do modelo: AL
+2026-04-17 11:47:18,026 - Finalizando agent_loop com resposta final: AL
+2026-04-17 11:47:27,703 - Iniciando agent_loop para pergunta: Produtos mais vendidos por estado
+2026-04-17 11:47:27,704 - Usando schema em cache
+2026-04-17 11:47:29,614 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 11:47:29,617 - [attempt 1] Processando response com 1 candidates
+2026-04-17 11:47:29,618 - Parte recebida: function_call=True; text=''
+2026-04-17 11:47:29,619 - Detectada função chamada: executar_query
+2026-04-17 11:47:29,620 - Executando query SQL: SELECT
+    d.estado,
+    dp.nome_produto,
+    SUM(fip.preco_BRL) AS total_vendido
+FROM
+    fat_itens_pedidos AS fip
+JOIN
+    fat_pedido_total AS fpt ON fip.id_pedido = fpt.id_pedido
+JOIN
+    dim_consumidores AS d ON fpt.id_consumidor = d.id_consumidor
+JOIN
+    dim_produtos AS dp ON fip.id_produto = dp.id_produto
+GROUP BY
+    d.estado,
+    dp.nome_produto
+ORDER BY
+    d.estado,
+    total_vendido DESC;
+2026-04-17 11:47:32,088 - Query executada: SELECT
+    d.estado,
+    dp.nome_produto,
+    SUM(fip.preco_BRL) AS total_vendido
+FROM
+    fat_itens_pedidos AS fip
+JOIN
+    fat_pedido_total AS fpt ON fip.id_pedido = fpt.id_pedido
+JOIN
+    dim_consumidores AS d ON fpt.id_consumidor = d.id_consumidor
+JOIN
+    dim_produtos AS dp ON fip.id_produto = dp.id_produto
+GROUP BY
+    d.estado,
+    dp.nome_produto
+ORDER BY
+    d.estado,
+    total_vendido DESC;
+2026-04-17 11:47:41,071 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 11:47:41,077 - [attempt 2] Processando response com 1 candidates
+2026-04-17 11:47:41,078 - Parte recebida: function_call=False; text='AC - Produtos mais vendidos: Item Básico Max (1200)
+AL - Produtos mais vendidos: Secador de Cabelo (4253.13)
+AM - Produtos mais vendidos: Kit de Ferramentas Econômico (1688)
+AP - Produtos mais vendidos: Equipamento Utilitário (1469.99)
+BA - Produtos mais vendidos: Equipamento Utilitário (11172.92)
+CE - Produtos mais vendidos: Máquina de Cortar Cabelo Vermelho (6880)
+DF - Produtos mais vendidos: Equipamento Utilitário (5089.25)
+ES - Produtos mais vendidos: Item Básico (9919.3)
+GO - Produtos mais vendidos: Equipamento Utilitário (5497.05)
+MA - Produtos mais vendidos: Equipamento Utilitário (6892.76)
+MG - Produtos mais vendidos: Equipamento Utilitário (23308.29)
+MT - Produtos mais vendidos: Equipamento Utilitário (3364.24)
+PA - Produtos mais vendidos:'
+2026-04-17 11:47:41,080 - Resposta final recebida do modelo: AC - Produtos mais vendidos: Item Básico Max (1200)
+AL - Produtos mais vendidos: Secador de Cabelo (4253.13)
+AM - Produtos mais vendidos: Kit de Ferramentas Econômico (1688)
+AP - Produtos mais vendidos: Equipamento Utilitário (1469.99)
+BA - Produtos mais vendidos: Equipamento Utilitário (11172.92)
+CE - Produtos mais vendidos: Máquina de Cortar Cabelo Vermelho (6880)
+DF - Produtos mais vendidos: Equipamento Utilitário (5089.25)
+ES - Produtos mais vendidos: Item Básico (9919.3)
+GO - Produtos mais vendidos: Equipamento Utilitário (5497.05)
+MA - Produtos mais vendidos: Equipamento Utilitário (6892.76)
+MG - Produtos mais vendidos: Equipamento Utilitário (23308.29)
+MT - Produtos mais vendidos: Equipamento Utilitário (3364.24)
+PA - Produtos mais vendidos:
+2026-04-17 11:47:41,081 - Finalizando agent_loop com resposta final: AC - Produtos mais vendidos: Item Básico Max (1200)
+AL - Produtos mais vendidos: Secador de Cabelo (4253.13)
+AM - Produtos mais vendidos: Kit de Ferramentas Econômico (1688)
+AP - Produtos mais vendidos: Equipamento Utilitário (1469.99)
+BA - Produtos mais vendidos: Equipamento Utilitário (11172.92)
+CE - Produtos mais vendidos: Máquina de Cortar Cabelo Vermelho (6880)
+DF - Produtos mais vendidos: Equipamento Utilitário (5089.25)
+ES - Produtos mais vendidos: Item Básico (9919.3)
+GO - Produtos mais vendidos: Equipamento Utilitário (5497.05)
+MA - Produtos mais vendidos: Equipamento Utilitário (6892.76)
+MG - Produtos mais vendidos: Equipamento Utilitário (23308.29)
+MT - Produtos mais vendidos: Equipamento Utilitário (3364.24)
+PA - Produtos mais vendidos:
+2026-04-17 11:48:05,662 - Iniciando agent_loop para pergunta: Produtos mais vendidos no estado de PE
+2026-04-17 11:48:05,665 - Usando schema em cache
+2026-04-17 11:48:06,725 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-04-17 11:48:06,727 - Erro da API Gemini: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 250000, model: gemini-2.5-flash-lite\nPlease retry in 53.037299911s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash-lite'}, 'quotaValue': '250000'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '53s'}]}}
+2026-04-17 11:50:01,493 - Iniciando agent_loop para pergunta: Categorias com maior taxa de avaliação negativa.
+2026-04-17 11:50:01,495 - Consultando schema do banco de dados
+2026-04-17 11:50:04,003 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 11:50:04,010 - [attempt 1] Processando response com 1 candidates
+2026-04-17 11:50:04,011 - Parte recebida: function_call=True; text=''
+2026-04-17 11:50:04,011 - Detectada função chamada: executar_query
+2026-04-17 11:50:04,012 - Executando query SQL: SELECT
+    dp.categoria_produto,
+    CAST(SUM(CASE WHEN fav.avaliacao < 3 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(fav.avaliacao)
+FROM
+    fat_avaliacoes_pedidos AS fav
+JOIN
+    fat_itens_pedidos AS fip
+ON
+    fav.id_pedido = fip.id_pedido
+JOIN
+    dim_produtos AS dp
+ON
+    fip.id_produto = dp.id_produto
+GROUP BY
+    dp.categoria_produto
+ORDER BY
+    (CAST(SUM(CASE WHEN fav.avaliacao < 3 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(fav.avaliacao)) DESC;
+2026-04-17 11:50:05,419 - Query executada: SELECT
+    dp.categoria_produto,
+    CAST(SUM(CASE WHEN fav.avaliacao < 3 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(fav.avaliacao)
+FROM
+    fat_avaliacoes_pedidos AS fav
+JOIN
+    fat_itens_pedidos AS fip
+ON
+    fav.id_pedido = fip.id_pedido
+JOIN
+    dim_produtos AS dp
+ON
+    fip.id_produto = dp.id_produto
+GROUP BY
+    dp.categoria_produto
+ORDER BY
+    (CAST(SUM(CASE WHEN fav.avaliacao < 3 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(fav.avaliacao)) DESC;
+2026-04-17 11:50:07,173 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 11:50:07,175 - [attempt 2] Processando response com 1 candidates
+2026-04-17 11:50:07,175 - Parte recebida: function_call=False; text='Seguros e serviços.'
+2026-04-17 11:50:07,175 - Resposta final recebida do modelo: Seguros e serviços.
+2026-04-17 11:50:07,175 - Finalizando agent_loop com resposta final: Seguros e serviços.
+2026-04-17 11:50:20,291 - Iniciando agent_loop para pergunta: % de pedidos entregues no prazo por estado dos consumidores
+2026-04-17 11:50:20,293 - Usando schema em cache
+2026-04-17 11:50:22,405 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 11:50:22,408 - [attempt 1] Processando response com 1 candidates
+2026-04-17 11:50:22,409 - Parte recebida: function_call=True; text=''
+2026-04-17 11:50:22,409 - Detectada função chamada: executar_query
+2026-04-17 11:50:22,410 - Executando query SQL: 
+SELECT
+  dc.estado,
+  CAST(SUM(CASE WHEN fp.entrega_no_prazo = 'True' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(fp.id_pedido)
+FROM fat_pedidos AS fp
+JOIN dim_consumidores AS dc
+  ON fp.id_consumidor = dc.id_consumidor
+GROUP BY
+  dc.estado
+ORDER BY
+  dc.estado
+
+2026-04-17 11:50:22,987 - Query executada: 
+SELECT
+  dc.estado,
+  CAST(SUM(CASE WHEN fp.entrega_no_prazo = 'True' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(fp.id_pedido)
+FROM fat_pedidos AS fp
+JOIN dim_consumidores AS dc
+  ON fp.id_consumidor = dc.id_consumidor
+GROUP BY
+  dc.estado
+ORDER BY
+  dc.estado
+
+2026-04-17 11:50:23,851 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 11:50:23,854 - [attempt 2] Processando response com 1 candidates
+2026-04-17 11:50:23,855 - Parte recebida: function_call=False; text='0.0'
+2026-04-17 11:50:23,855 - Resposta final recebida do modelo: 0.0
+2026-04-17 11:50:23,856 - Finalizando agent_loop com resposta final: 0.0
+2026-04-17 12:01:38,967 - Iniciando agent_loop para pergunta: % de pedidos entregues no prazo por estado dos consumidores
+2026-04-17 12:01:38,967 - Usando schema em cache
+2026-04-17 12:01:41,195 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 12:01:41,199 - [attempt 1] Processando response com 1 candidates
+2026-04-17 12:01:41,200 - Parte recebida: function_call=True; text=''
+2026-04-17 12:01:41,201 - Detectada função chamada: executar_query
+2026-04-17 12:01:41,201 - Executando query SQL: 
+SELECT
+  dc.estado,
+  CAST(SUM(CASE WHEN fp.entrega_no_prazo = 'True' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(fp.id_pedido)
+FROM fat_pedidos AS fp
+JOIN dim_consumidores AS dc
+  ON fp.id_consumidor = dc.id_consumidor
+GROUP BY
+  dc.estado
+ORDER BY
+  dc.estado
+
+2026-04-17 12:01:41,612 - Query executada: 
+SELECT
+  dc.estado,
+  CAST(SUM(CASE WHEN fp.entrega_no_prazo = 'True' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(fp.id_pedido)
+FROM fat_pedidos AS fp
+JOIN dim_consumidores AS dc
+  ON fp.id_consumidor = dc.id_consumidor
+GROUP BY
+  dc.estado
+ORDER BY
+  dc.estado
+
+2026-04-17 12:01:44,338 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 12:01:44,340 - [attempt 2] Processando response com 1 candidates
+2026-04-17 12:01:44,341 - Parte recebida: function_call=False; text='0.0'
+2026-04-17 12:01:44,341 - Resposta final recebida do modelo: 0.0
+2026-04-17 12:01:44,342 - Finalizando agent_loop com resposta final: 0.0
+2026-04-17 12:02:53,047 - Iniciando agent_loop para pergunta: qual a % de pedidos entregues no prazo em cada estado
+2026-04-17 12:02:53,048 - Usando schema em cache
+2026-04-17 12:02:57,569 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 12:02:57,572 - [attempt 1] Processando response com 1 candidates
+2026-04-17 12:02:57,573 - Parte recebida: function_call=True; text=''
+2026-04-17 12:02:57,573 - Detectada função chamada: executar_query
+2026-04-17 12:02:57,574 - Executando query SQL: 
+SELECT
+  c.estado,
+  SUM(CASE WHEN p.entrega_no_prazo = 'true' THEN 1 ELSE 0 END) * 100.0 / COUNT(p.id_pedido) AS percentual_entregue_no_prazo
+FROM fat_pedidos AS p
+JOIN dim_consumidores AS c
+  ON p.id_consumidor = c.id_consumidor
+GROUP BY
+  c.estado
+ORDER BY
+  percentual_entregue_no_prazo DESC;
+2026-04-17 12:02:58,410 - Query executada: 
+SELECT
+  c.estado,
+  SUM(CASE WHEN p.entrega_no_prazo = 'true' THEN 1 ELSE 0 END) * 100.0 / COUNT(p.id_pedido) AS percentual_entregue_no_prazo
+FROM fat_pedidos AS p
+JOIN dim_consumidores AS c
+  ON p.id_consumidor = c.id_consumidor
+GROUP BY
+  c.estado
+ORDER BY
+  percentual_entregue_no_prazo DESC;
+2026-04-17 12:03:01,083 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 12:03:01,087 - [attempt 2] Processando response com 1 candidates
+2026-04-17 12:03:01,088 - Parte recebida: function_call=False; text='A porcentagem de pedidos entregues no prazo em cada estado é a seguinte: TO: 0%, SP: 0%, SE: 0%, SC: 0%, RS: 0%, RR: 0%, RO: 0%, RN: 0%, RJ: 0%, PR: 0%, PI: 0%, PE: 0%, PB: 0%, PA: 0%, MT: 0%, MS: 0%, MG: 0%, MA: 0%, GO: 0%, ES: 0%, DF: 0%, CE: 0%, BA: 0%, AP: 0%, AM: 0%, AL: 0%, AC: 0%.'
+2026-04-17 12:03:01,089 - Resposta final recebida do modelo: A porcentagem de pedidos entregues no prazo em cada estado é a seguinte: TO: 0%, SP: 0%, SE: 0%, SC: 0%, RS: 0%, RR: 0%, RO: 0%, RN: 0%, RJ: 0%, PR: 0%, PI: 0%, PE: 0%, PB: 0%, PA: 0%, MT: 0%, MS: 0%, MG: 0%, MA: 0%, GO: 0%, ES: 0%, DF: 0%, CE: 0%, BA: 0%, AP: 0%, AM: 0%, AL: 0%, AC: 0%.
+2026-04-17 12:03:01,089 - Finalizando agent_loop com resposta final: A porcentagem de pedidos entregues no prazo em cada estado é a seguinte: TO: 0%
+SP: 0%
+SE: 0%
+SC: 0%
+RS: 0%
+RR: 0%
+RO: 0%
+RN: 0%
+RJ: 0%
+PR: 0%
+PI: 0%
+PE: 0%
+PB: 0%
+PA: 0%
+MT: 0%
+MS: 0%
+MG: 0%
+MA: 0%
+GO: 0%
+ES: 0%
+DF: 0%
+CE: 0%
+BA: 0%
+AP: 0%
+AM: 0%
+AL: 0%
+AC: 0%.
+2026-04-17 12:04:15,161 - Iniciando agent_loop para pergunta: qual a media de avaliação dos 10 maiores vendedores
+2026-04-17 12:04:15,162 - Usando schema em cache
+2026-04-17 12:04:17,133 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 12:04:17,136 - [attempt 1] Processando response com 1 candidates
+2026-04-17 12:04:17,137 - Parte recebida: function_call=True; text=''
+2026-04-17 12:04:17,137 - Detectada função chamada: executar_query
+2026-04-17 12:04:17,138 - Executando query SQL: SELECT AVG(T1.avaliacao) FROM fat_avaliacoes_pedidos AS T1 INNER JOIN fat_itens_pedidos AS T2 ON T1.id_pedido = T2.id_pedido INNER JOIN dim_vendedores AS T3 ON T2.id_vendedor = T3.id_vendedor GROUP BY T3.nome_vendedor ORDER BY COUNT(T1.id_avaliacao) DESC LIMIT 10
+2026-04-17 12:04:18,708 - Query executada: SELECT AVG(T1.avaliacao) FROM fat_avaliacoes_pedidos AS T1 INNER JOIN fat_itens_pedidos AS T2 ON T1.id_pedido = T2.id_pedido INNER JOIN dim_vendedores AS T3 ON T2.id_vendedor = T3.id_vendedor GROUP BY T3.nome_vendedor ORDER BY COUNT(T1.id_avaliacao) DESC LIMIT 10
+2026-04-17 12:04:20,389 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 12:04:20,391 - [attempt 2] Processando response com 1 candidates
+2026-04-17 12:04:20,391 - Parte recebida: function_call=False; text='A média de avaliação dos 10 maiores vendedores é aproximadamente 3.95.'
+2026-04-17 12:04:20,392 - Resposta final recebida do modelo: A média de avaliação dos 10 maiores vendedores é aproximadamente 3.95.
+2026-04-17 12:04:20,392 - Finalizando agent_loop com resposta final: A média de avaliação dos 10 maiores vendedores é aproximadamente 3.95.
+2026-04-17 12:04:40,069 - Iniciando agent_loop para pergunta: qual os 10 maiores vendedores e qual a media de cada um deles
+2026-04-17 12:04:40,070 - Usando schema em cache
+2026-04-17 12:04:43,872 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 12:04:43,876 - [attempt 1] Processando response com 1 candidates
+2026-04-17 12:04:43,877 - Parte recebida: function_call=True; text=''
+2026-04-17 12:04:43,878 - Detectada função chamada: executar_query
+2026-04-17 12:04:43,881 - Executando query SQL: SELECT T2.nome_vendedor, AVG(T1.preco_BRL) FROM fat_itens_pedidos AS T1 INNER JOIN dim_vendedores AS T2 ON T1.id_vendedor = T2.id_vendedor GROUP BY T2.nome_vendedor ORDER BY AVG(T1.preco_BRL) DESC LIMIT 10
+2026-04-17 12:04:44,178 - Query executada: SELECT T2.nome_vendedor, AVG(T1.preco_BRL) FROM fat_itens_pedidos AS T1 INNER JOIN dim_vendedores AS T2 ON T1.id_vendedor = T2.id_vendedor GROUP BY T2.nome_vendedor ORDER BY AVG(T1.preco_BRL) DESC LIMIT 10
+2026-04-17 12:04:49,668 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 12:04:49,671 - [attempt 2] Processando response com 1 candidates
+2026-04-17 12:04:49,672 - Parte recebida: function_call=False; text='Srta. Clara Lima, Davi Luiz Camargo, José Pedro Duarte, Paulo Siqueira, Ágatha Cunha, Lucas Castro, Vitor Gabriel Nogueira, Cauã Nogueira, Valentina Albuquerque, Bárbara Camargo'
+2026-04-17 12:04:49,672 - Resposta final recebida do modelo: Srta. Clara Lima, Davi Luiz Camargo, José Pedro Duarte, Paulo Siqueira, Ágatha Cunha, Lucas Castro, Vitor Gabriel Nogueira, Cauã Nogueira, Valentina Albuquerque, Bárbara Camargo
+2026-04-17 12:04:49,675 - Finalizando agent_loop com resposta final: Srta. Clara Lima
+Davi Luiz Camargo
+José Pedro Duarte
+Paulo Siqueira
+Ágatha Cunha
+Lucas Castro
+Vitor Gabriel Nogueira
+Cauã Nogueira
+Valentina Albuquerque
+Bárbara Camargo
+2026-04-17 12:07:26,073 - Iniciando agent_loop para pergunta: qual os 10 maiores vendedores e qual a media de cada um deles
+2026-04-17 12:07:26,074 - Consultando schema do banco de dados
+2026-04-17 12:07:31,687 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 12:07:31,692 - [attempt 1] Processando response com 1 candidates
+2026-04-17 12:07:31,693 - Parte recebida: function_call=True; text=''
+2026-04-17 12:07:31,694 - Detectada função chamada: executar_query
+2026-04-17 12:07:31,695 - Executando query SQL: 
+SELECT
+  T2.nome_vendedor,
+  COUNT(T1.id_pedido) AS total_pedidos,
+  AVG(T3.valor_total_pago_brl) AS media_valor_pago
+FROM fat_itens_pedidos AS T1
+INNER JOIN dim_vendedores AS T2
+  ON T1.id_vendedor = T2.id_vendedor
+INNER JOIN fat_pedido_total AS T3
+  ON T1.id_pedido = T3.id_pedido
+GROUP BY
+  T2.nome_vendedor
+ORDER BY
+  total_pedidos DESC
+LIMIT 10;
+
+2026-04-17 12:07:32,856 - Query executada: 
+SELECT
+  T2.nome_vendedor,
+  COUNT(T1.id_pedido) AS total_pedidos,
+  AVG(T3.valor_total_pago_brl) AS media_valor_pago
+FROM fat_itens_pedidos AS T1
+INNER JOIN dim_vendedores AS T2
+  ON T1.id_vendedor = T2.id_vendedor
+INNER JOIN fat_pedido_total AS T3
+  ON T1.id_pedido = T3.id_pedido
+GROUP BY
+  T2.nome_vendedor
+ORDER BY
+  total_pedidos DESC
+LIMIT 10;
+
+2026-04-17 12:07:47,730 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 12:07:47,734 - [attempt 2] Processando response com 1 candidates
+2026-04-17 12:07:47,736 - Parte recebida: function_call=False; text='Lucas Vasconcelos, Mathias Gonçalves, Henry Gabriel Nascimento, Srta. Maria Cecília Marques, Heloisa Santos, Sra. Maria Flor Aparecida, Srta. Stephany Gomes, Ester Sá, Theodoro Cunha, Rhavi Fernandes. A média de valor pago por cada um deles é R$ 88,37, R$ 151,61, R$ 150,31, R$ 79,61, R$ 175,51, R$ 157,65, R$ 215,84, R$ 371,82, R$ 51,27 e R$ 144,35, respectivamente.'
+2026-04-17 12:07:47,737 - Resposta final recebida do modelo: Lucas Vasconcelos, Mathias Gonçalves, Henry Gabriel Nascimento, Srta. Maria Cecília Marques, Heloisa Santos, Sra. Maria Flor Aparecida, Srta. Stephany Gomes, Ester Sá, Theodoro Cunha, Rhavi Fernandes. A média de valor pago por cada um deles é R$ 88,37, R$ 151,61, R$ 150,31, R$ 79,61, R$ 175,51, R$ 157,65, R$ 215,84, R$ 371,82, R$ 51,27 e R$ 144,35, respectivamente.
+2026-04-17 12:07:47,753 - Ignorando resposta do modelo e usando resultado da query
+2026-04-17 12:08:01,280 - Iniciando agent_loop para pergunta: qual os 10 maiores vendedores e qual a media de avaliação de cada um deles
+2026-04-17 12:08:01,284 - Usando schema em cache
+2026-04-17 12:08:04,831 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 12:08:04,836 - [attempt 1] Processando response com 1 candidates
+2026-04-17 12:08:04,837 - Parte recebida: function_call=True; text=''
+2026-04-17 12:08:04,837 - Detectada função chamada: executar_query
+2026-04-17 12:08:04,839 - Executando query SQL: 
+SELECT
+  v.nome_vendedor,
+  AVG(a.avaliacao) AS media_avaliacao
+FROM dim_vendedores AS v
+JOIN fat_itens_pedidos AS ip
+  ON v.id_vendedor = ip.id_vendedor
+JOIN fat_avaliacoes_pedidos AS a
+  ON ip.id_pedido = a.id_pedido
+GROUP BY
+  v.nome_vendedor
+ORDER BY
+  COUNT(ip.id_item) DESC
+LIMIT 10
+
+2026-04-17 12:08:06,801 - Query executada: 
+SELECT
+  v.nome_vendedor,
+  AVG(a.avaliacao) AS media_avaliacao
+FROM dim_vendedores AS v
+JOIN fat_itens_pedidos AS ip
+  ON v.id_vendedor = ip.id_vendedor
+JOIN fat_avaliacoes_pedidos AS a
+  ON ip.id_pedido = a.id_pedido
+GROUP BY
+  v.nome_vendedor
+ORDER BY
+  COUNT(ip.id_item) DESC
+LIMIT 10
+
+2026-04-17 12:08:10,382 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 12:08:10,385 - [attempt 2] Processando response com 1 candidates
+2026-04-17 12:08:10,386 - Parte recebida: function_call=False; text='Lucas Vasconcelos com média de 3.94, Mathias Gonçalves com média de 3.83, Henry Gabriel Nascimento com média de 4.04, Srta. Maria Cecília Marques com média de 4.08, Heloisa Santos com média de 4.10, Sra. Maria Flor Aparecida com média de 4.09, Srta. Stephany Gomes com média de 3.89, Ester Sá com média de 3.43, Theodoro Cunha com média de 4.00, Hellena Novais com média de 4.13.'
+2026-04-17 12:08:10,389 - Resposta final recebida do modelo: Lucas Vasconcelos com média de 3.94, Mathias Gonçalves com média de 3.83, Henry Gabriel Nascimento com média de 4.04, Srta. Maria Cecília Marques com média de 4.08, Heloisa Santos com média de 4.10, Sra. Maria Flor Aparecida com média de 4.09, Srta. Stephany Gomes com média de 3.89, Ester Sá com média de 3.43, Theodoro Cunha com média de 4.00, Hellena Novais com média de 4.13.
+2026-04-17 12:08:10,390 - Ignorando resposta do modelo e usando resultado da query

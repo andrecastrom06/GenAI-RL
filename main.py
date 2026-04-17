@@ -36,25 +36,10 @@ def executar_query(query: str) -> dict:
             results = cursor.fetchall()
             columns = [desc[0] for desc in cursor.description] if cursor.description else []
             result_dict = {"columns": columns, "data": results}
-            return anonimizar_dados(result_dict)
+            return result_dict
     except Exception as e:
         return {"error": str(e)}
-
-# Função para anonimizar dados (simulada)
-def anonimizar_dados(results):
-    # Simulação: substituir apenas campos sensíveis por placeholders.
-    sensitive_fields = {"nome_cliente", "email", "cpf", "telefone", "endereco", "bairro", "cidade", "estado"}
-    if "data" in results:
-        anonymized_data = []
-        for row in results["data"]:
-            row_list = list(row)
-            for i, col in enumerate(results["columns"]):
-                column_name = col.lower()
-                if column_name in sensitive_fields:
-                    row_list[i] = "ANONIMIZADO"
-            anonymized_data.append(tuple(row_list))
-        results["data"] = anonymized_data
-    return results
+    
 
 # Função para obter schema
 def get_schema() -> dict:
@@ -102,6 +87,11 @@ Se precisar saber quais valores uma coluna pode ter, use a função get_distinct
 Use a função executar_query(query) para consultar dados e não retorne o SQL da consulta como resposta final.
 Não explique a análise ou o processo interno.
 Não execute comandos de escrita (INSERT, UPDATE, DELETE, DROP). Apenas consultas de leitura.
+Sempre responda TODAS as partes da pergunta do usuário.
+Se a pergunta envolver múltiplas métricas (ex: ranking + média), a query SQL deve incluir todas elas.
+Nunca retorne apenas parte da resposta.
+Se necessário, ajuste a query para incluir colunas adicionais com cálculos agregados.
+Antes de finalizar, verifique se todos os pedidos da pergunta foram atendidos, se não, ajuste a consulta SQL.
 """
 
 # Configurar Gemini
@@ -280,6 +270,10 @@ def agent_loop(user_query):
                 logging.info(f"Resposta final recebida do modelo: {final_answer}")
 
         if final_answer:
+            if last_result is not None:
+                logging.info("Ignorando resposta do modelo e usando resultado da query")
+                return format_query_result(last_result)
+
             final_answer = normalize_answer_text(final_answer)
             logging.info(f"Finalizando agent_loop com resposta final: {final_answer}")
             return final_answer
