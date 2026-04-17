@@ -59,7 +59,6 @@ streamlit run app.py
 - Guardrails contra comandos de escrita
 - Tratamento de erros com correção automática
 - Saída estruturada com Pydantic
-- Anonimização de dados (simulada)
 
 ## Tecnologias Utilizadas
 
