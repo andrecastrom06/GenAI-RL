@@ -15,7 +15,6 @@ Este projeto implementa um agente de IA utilizando o modelo Gemini da Google par
 1. Clone o repositório:
    ```bash
    git clone <url-do-repositorio>
-   cd IA_rocket
    ```
 
 2. Instale as dependências:
@@ -65,11 +64,7 @@ streamlit run app.py
 ## Tecnologias Utilizadas
 
 - Python 3.x
-- Google Generative AI (Gemini Pro - modelo utilizado devido à disponibilidade na API)
+- Google Generative AI
 - SQLite3
 - Pydantic
-- Streamlit (opcional)
-
-## Prazo de Entrega
-
-Entrega até 22/04/2026 às 18:00.
+- Streamlit
