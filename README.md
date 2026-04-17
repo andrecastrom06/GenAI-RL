@@ -5,7 +5,7 @@ Este projeto implementa um agente de IA utilizando o modelo Gemini da Google par
 ## Funcionalidades
 
 - Consultas seguras ao banco de dados (apenas leitura)
-- Integração com Gemini 1.5 Flash
+- Integração com Gemini 2.5 Flash Lite
 - Tratamento de erros e correção automática de queries
 - Logging de queries para monitoramento
 - Interface opcional com Streamlit
