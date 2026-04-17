@@ -5,28 +5,12 @@ from main import agent_loop
 # CONFIG
 st.set_page_config(page_title="Agente SQL", layout="centered")
 
-# CSS
+# CSS (mantido igual)
 st.markdown("""
     <style>
-    /* Fundo geral */
-    .stApp {
-        background-color: #0d3b1e;
-    }
-
-    /* Título */
-    h1 {
-        color: #ffffff;
-        text-align: center;
-        font-weight: 700;
-    }
-
-    /* Label */
-    label {
-        color: #c8e6c9 !important;
-        font-weight: 500;
-    }
-
-    /* Input */
+    .stApp { background-color: #0d3b1e; }
+    h1 { color: #ffffff; text-align: center; font-weight: 700; }
+    label { color: #c8e6c9 !important; font-weight: 500; }
     .stTextInput > div > div > input {
         background-color: #ffffff;
         border: 2px solid #66bb6a;
@@ -34,8 +18,6 @@ st.markdown("""
         padding: 10px;
         color: #1b5e20;
     }
-
-    /* Botão */
     .stButton > button {
         background-color: #66bb6a;
         color: #0d3b1e;
@@ -45,13 +27,9 @@ st.markdown("""
         border: none;
         transition: 0.3s;
     }
-
     .stButton > button:hover {
         background-color: #81c784;
-        color: #0d3b1e;
     }
-
-    /* Caixa de resposta */
     .response-box {
         background-color: #ffffff;
         border: 2px solid #66bb6a;
@@ -59,13 +37,8 @@ st.markdown("""
         padding: 15px;
         margin-top: 20px;
         color: #1b5e20;
-        font-weight: 500;
     }
-
-    /* Subtítulo */
-    h3 {
-        color: #a5d6a7;
-    }
+    h3 { color: #a5d6a7; }
     </style>
 """, unsafe_allow_html=True)
 
@@ -81,9 +54,21 @@ if st.button("Consultar"):
 
         st.markdown("### Resultado:")
 
-        if isinstance(answer, dict) and "data" in answer:
-            df = pd.DataFrame(answer["data"], columns=answer["columns"])
-            st.dataframe(df, width="stretch")
+        # 🔥 NOVO FORMATO
+        if isinstance(answer, dict):
+
+            # Mostrar explicação sempre
+            explanation = answer.get("explanation", "")
+            
+            # Mostrar tabela se existir
+            results = answer.get("results")
+
+            if explanation and not results:
+                st.markdown(f"<div class='response-box'>{explanation}</div>", unsafe_allow_html=True)
+
+            if results and "data" in results:
+                df = pd.DataFrame(results["data"], columns=results["columns"])
+                st.dataframe(df, width="stretch")
 
         else:
             st.markdown(f"<div class='response-box'>{answer}</div>", unsafe_allow_html=True)

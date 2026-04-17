@@ -6282,3 +6282,29 @@ LIMIT 10
 2026-04-17 12:23:00,414 - [attempt 2] Processando response com 1 candidates
 2026-04-17 12:23:00,415 - Resposta do modelo não contém partes de conteúdo para processar.
 2026-04-17 12:23:00,416 - Finalizando agent_loop com resultado de query formatado
+2026-04-17 16:54:34,168 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 16:54:34,238 - Executando query SQL: SELECT dp.nome_produto, SUM(fip.preco_BRL) AS total_vendido FROM fat_itens_pedidos AS fip JOIN dim_produtos AS dp ON fip.id_produto = dp.id_produto GROUP BY dp.nome_produto ORDER BY total_vendido DESC LIMIT 10
+2026-04-17 16:54:35,247 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 16:56:05,022 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 16:56:05,026 - Executando query SQL: SELECT dp.nome_produto, SUM(fip.preco_BRL) AS total_vendido FROM fat_itens_pedidos AS fip JOIN dim_produtos AS dp ON fip.id_produto = dp.id_produto GROUP BY dp.nome_produto ORDER BY total_vendido DESC LIMIT 10
+2026-04-17 16:56:05,866 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 16:56:05,870 - Resposta sem parts
+2026-04-17 16:58:45,083 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-17 16:58:45,087 - Executando query SQL: 
+SELECT
+    v.nome_vendedor,
+    AVG(a.avaliacao) AS media_avaliacao,
+    COUNT(DISTINCT ip.id_pedido) AS numero_vendas
+FROM
+    dim_vendedores AS v
+JOIN
+    fat_itens_pedidos AS ip ON v.id_vendedor = ip.id_vendedor
+JOIN
+    fat_avaliacoes_pedidos AS a ON ip.id_pedido = a.id_pedido
+GROUP BY
+    v.nome_vendedor
+ORDER BY
+    numero_vendas DESC
+LIMIT 10
+
+2026-04-17 16:58:49,244 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
