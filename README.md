@@ -1,1 +1,1 @@
-# GenAI---RL
+# GenAI-RL
