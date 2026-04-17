@@ -272,7 +272,7 @@ def agent_loop(user_query):
         if final_answer:
             if last_result is not None:
                 logging.info("Ignorando resposta do modelo e usando resultado da query")
-                return format_query_result(last_result)
+                return last_result
 
             final_answer = normalize_answer_text(final_answer)
             logging.info(f"Finalizando agent_loop com resposta final: {final_answer}")
@@ -287,7 +287,7 @@ def agent_loop(user_query):
 
     if last_result is not None:
         logging.info("Finalizando agent_loop com resultado de query formatado")
-        return format_query_result(last_result)
+        return last_result
 
     logging.warning("agent_loop não conseguiu gerar resposta")
     return "Não foi possível gerar uma resposta. Tente novamente com outra pergunta."
