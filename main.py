@@ -7,6 +7,36 @@ from pydantic import BaseModel
 import logging
 import re
 
+estados = {
+    "AC": "Acre",
+    "AL": "Alagoas",
+    "AP": "Amapá",
+    "AM": "Amazonas",
+    "BA": "Bahia",
+    "CE": "Ceará",
+    "DF": "Distrito Federal",
+    "ES": "Espírito Santo",
+    "GO": "Goiás",
+    "MA": "Maranhão",
+    "MT": "Mato Grosso",
+    "MS": "Mato Grosso do Sul",
+    "MG": "Minas Gerais",
+    "PA": "Pará",
+    "PB": "Paraíba",
+    "PR": "Paraná",
+    "PE": "Pernambuco",
+    "PI": "Piauí",
+    "RJ": "Rio de Janeiro",
+    "RN": "Rio Grande do Norte",
+    "RS": "Rio Grande do Sul",
+    "RO": "Rondônia",
+    "RR": "Roraima",
+    "SC": "Santa Catarina",
+    "SP": "São Paulo",
+    "SE": "Sergipe",
+    "TO": "Tocantins"
+}
+
 # Carregar variáveis de ambiente
 load_dotenv()
 API_KEY = os.getenv("GOOGLE_API_KEY")
@@ -176,8 +206,15 @@ def format_schema(schema: dict) -> str:
         for table, cols in schema.items()
     )
 
+def normalizar_estados(texto: str) -> str:
+    for sigla, nome in estados.items():
+        # substitui nome completo pela sigla
+        texto = re.sub(rf"\b{nome}\b", sigla, texto, flags=re.IGNORECASE)
+    return texto
+
 # Loop de execução do agente
 def agent_loop(user_query: str) -> dict:
+    user_query = normalizar_estados(user_query)
     schema_text = format_schema(get_schema())
     chat = genai_client.chats.create(model=MODEL_NAME, config=CHAT_CONFIG)
 

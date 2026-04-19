@@ -6308,3 +6308,15 @@ ORDER BY
 LIMIT 10
 
 2026-04-17 16:58:49,244 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-19 20:01:19,577 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-19 20:01:19,585 - Executando query SQL: SELECT v.nome_vendedor, COUNT(fp.id_item) AS quantidade_vendida FROM fat_itens_pedidos fp JOIN dim_vendedores v ON fp.id_vendedor = v.id_vendedor GROUP BY v.nome_vendedor ORDER BY quantidade_vendida DESC LIMIT 10
+2026-04-19 20:01:20,359 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-19 20:01:20,364 - Resposta sem parts
+2026-04-19 20:01:50,822 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-19 20:01:50,828 - Executando query SQL: SELECT dp.nome_produto FROM fat_itens_pedidos AS fip JOIN dim_produtos AS dp ON fip.id_produto = dp.id_produto JOIN fat_pedido_total AS fpt ON fip.id_pedido = fpt.id_pedido JOIN dim_consumidores AS dc ON fpt.id_consumidor = dc.id_consumidor WHERE dc.estado = "PE" GROUP BY dp.nome_produto ORDER BY COUNT(fip.id_item) DESC LIMIT 1
+2026-04-19 20:01:54,763 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-19 20:01:54,766 - Resposta sem parts
+2026-04-19 20:04:15,922 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-19 20:04:15,926 - Executando query SQL: SELECT dp.nome_produto FROM fat_itens_pedidos AS fip JOIN dim_produtos AS dp ON fip.id_produto = dp.id_produto JOIN fat_pedido_total AS fpt ON fip.id_pedido = fpt.id_pedido JOIN dim_consumidores AS dc ON fpt.id_consumidor = dc.id_consumidor WHERE dc.estado = "PE" GROUP BY dp.nome_produto ORDER BY COUNT(fip.id_produto) DESC LIMIT 1
+2026-04-19 20:04:18,530 - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-04-19 20:04:18,534 - Resposta sem parts
